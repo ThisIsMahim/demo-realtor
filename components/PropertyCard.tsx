@@ -1,5 +1,6 @@
 import Image from 'next/image';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { useRef } from 'react';
 import { IListing } from '../models/Listing';
 
 interface PropertyCardProps {
@@ -8,6 +9,14 @@ interface PropertyCardProps {
 }
 
 export function PropertyCard({ listing, spanClass = "" }: PropertyCardProps) {
+    const containerRef = useRef<HTMLDivElement>(null);
+    const { scrollYProgress } = useScroll({
+        target: containerRef,
+        offset: ["start end", "end start"]
+    });
+
+    const y = useTransform(scrollYProgress, [0, 1], ["-15%", "15%"]);
+
     const imageUrl = listing.images && listing.images.length > 0 ? listing.images[0] : "";
     const formatPrice = (price: number) => {
         return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(price);
@@ -15,6 +24,7 @@ export function PropertyCard({ listing, spanClass = "" }: PropertyCardProps) {
 
     return (
         <motion.div
+            ref={containerRef}
             layout
             layoutId={listing._id ? String(listing._id) : undefined}
             initial={{ opacity: 0, scale: 0.9 }}
@@ -23,15 +33,20 @@ export function PropertyCard({ listing, spanClass = "" }: PropertyCardProps) {
             transition={{ duration: 0.6, ease: [0.33, 1, 0.68, 1] }}
             className={`group relative overflow-hidden rounded-2xl bg-white dark:bg-architecture-slate transition-all duration-700 ease-[cubic-bezier(0.33,1,0.68,1)] hover:shadow-2xl dark:hover:shadow-brand-red/10 cursor-pointer ${spanClass} border border-black/5 dark:border-white/5`}
         >
-            <div className="absolute inset-0 z-0">
-                <Image
-                    src={imageUrl}
-                    alt={listing.title || 'Property Image'}
-                    fill
-                    className="object-cover transition-transform duration-1000 ease-[cubic-bezier(0.33,1,0.68,1)] group-hover:scale-105"
-                />
+            <div className="absolute inset-0 z-0 overflow-hidden">
+                <motion.div
+                    style={{ y }}
+                    className="absolute inset-[ -15% ] w-[100%] h-[130%]"
+                >
+                    <Image
+                        src={imageUrl}
+                        alt={listing.title || 'Property Image'}
+                        fill
+                        className="object-cover transition-transform duration-1000 ease-[cubic-bezier(0.33,1,0.68,1)] group-hover:scale-105"
+                    />
+                </motion.div>
                 {/* Gradient overlay - lighter in light mode, darker in dark mode */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 dark:from-architecture-dark dark:via-architecture-dark/40 to-transparent opacity-80 transition-opacity duration-700 group-hover:opacity-70" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 dark:from-architecture-dark dark:via-architecture-dark/40 to-transparent opacity-80 transition-opacity duration-700 group-hover:opacity-70 z-10" />
             </div>
 
             <div className="absolute inset-x-0 top-0 p-4 md:p-6 z-20 flex justify-between items-start pointer-events-none">

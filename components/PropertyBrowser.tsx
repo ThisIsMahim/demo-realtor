@@ -13,7 +13,7 @@ export function PropertyBrowser({ initialListings }: PropertyBrowserProps) {
 
     useEffect(() => {
         const handleScroll = () => {
-            setIsScrolled(window.scrollY > 200);
+            setIsScrolled(window.scrollY > 100);
         };
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
@@ -61,27 +61,26 @@ export function PropertyBrowser({ initialListings }: PropertyBrowserProps) {
     return (
         <div className="w-full flex flex-col relative -mt-16 sm:-mt-20 md:-mt-24 z-30">
             {/* Themed Filter Bar - "Architectural Slab" Design */}
-            <div className="sticky top-6 z-[60] w-full px-4 mb-16 flex justify-center">
-                <div className={`flex flex-col md:flex-row items-stretch md:items-center bg-zinc-50 dark:bg-[#050505] rounded-xl shadow-[0_20px_50px_rgba(0,0,0,0.1)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.3)] border border-zinc-200 dark:border-zinc-800 w-full transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] max-w-5xl ${isScrolled ? 'opacity-100' : 'opacity-100'}`}>
+            <div className="sticky top-4 z-[60] w-full px-4 transition-all duration-500 ease-in-out flex justify-center mb-8">
+                <div className="flex flex-row items-center bg-white/80 dark:bg-[#050505]/80 backdrop-blur-2xl border border-zinc-200 dark:border-zinc-800 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] shadow-2xl max-w-5xl rounded-full py-2 px-4 border-brand-red/20 shadow-brand-red/5">
 
-                    <div className="flex-1 flex flex-col md:flex-row items-stretch md:items-center divide-y md:divide-y-0 md:divide-x divide-zinc-200 dark:divide-zinc-800">
+                    <div className="flex-1 flex flex-row items-center divide-x divide-zinc-200 dark:divide-zinc-800 min-w-max md:min-w-0">
                         {/* Property Type Dropdown */}
-                        <div className="relative flex-1 group">
-                            <div className="flex flex-row items-center justify-between md:flex-col md:items-start px-6 py-4 md:py-6 cursor-pointer hover:bg-zinc-100 dark:hover:bg-zinc-900/50 transition-colors first:rounded-t-xl md:first:rounded-l-xl md:first:rounded-t-none" onClick={() => { setIsPropertyTypeOpen(!isPropertyTypeOpen); setIsLocationOpen(false); setIsStatusOpen(false); }}>
+                        <div className="relative flex-1 group min-w-[100px] md:min-w-0">
+                            <div className="flex flex-row items-center justify-between px-3 md:px-6 cursor-pointer hover:bg-zinc-100 dark:hover:bg-zinc-900/50 transition-all duration-500 py-1 rounded-full" onClick={() => { setIsPropertyTypeOpen(!isPropertyTypeOpen); setIsLocationOpen(false); setIsStatusOpen(false); }}>
                                 <div className="flex flex-col">
-                                    <span className="text-[10px] uppercase tracking-[0.2em] font-bold text-zinc-400 dark:text-zinc-500 mb-1.5">Property Type</span>
-                                    <span className="text-zinc-900 dark:text-zinc-50 text-xs md:text-sm font-medium tracking-tight">
+                                    <span className="text-zinc-900 dark:text-zinc-50 font-medium tracking-tight transition-all duration-500 text-[9px] md:text-xs">
                                         {activePropertyType || 'All Estates'}
                                     </span>
                                 </div>
-                                <svg className={`w-3 h-3 text-zinc-400 dark:text-zinc-600 transition-transform duration-500 ${isPropertyTypeOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M19 9l-7 7-7-7"></path></svg>
+                                <svg className={`w-2.5 h-2.5 md:w-3 md:h-3 text-zinc-400 dark:text-zinc-600 transition-transform duration-500 ml-2 ${isPropertyTypeOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M19 9l-7 7-7-7"></path></svg>
                             </div>
 
                             {isPropertyTypeOpen && (
-                                <div className="absolute top-[calc(100%+8px)] left-0 w-full min-w-[220px] bg-zinc-50 dark:bg-[#080808] border border-zinc-200 dark:border-zinc-800 rounded-xl overflow-hidden shadow-2xl z-50 animate-in fade-in slide-in-from-top-2 duration-300">
+                                <div className="absolute top-[calc(100%+12px)] left-0 w-full min-w-[180px] md:min-w-[220px] bg-white/95 dark:bg-[#080808]/95 backdrop-blur-md border border-zinc-200 dark:border-zinc-800 rounded-xl overflow-hidden shadow-3xl z-50 animate-in fade-in slide-in-from-top-2 duration-300">
                                     <div className="p-1.5">
                                         <button
-                                            className={`w-full text-left px-4 py-3 rounded-lg text-[11px] uppercase tracking-[0.15em] font-bold transition-all ${!activePropertyType ? 'bg-zinc-900 dark:bg-zinc-100 text-white dark:text-black' : 'text-zinc-500 hover:bg-zinc-200 dark:hover:bg-zinc-900'}`}
+                                            className="w-full text-left px-4 py-2.5 rounded-lg text-[9px] md:text-[11px] uppercase tracking-[0.15em] font-bold transition-all text-zinc-500 hover:bg-zinc-200 dark:hover:bg-zinc-900"
                                             onClick={() => { setActivePropertyType(null); setIsPropertyTypeOpen(false); }}
                                         >
                                             Show All
@@ -89,7 +88,7 @@ export function PropertyBrowser({ initialListings }: PropertyBrowserProps) {
                                         {propertyTypes.map(type => (
                                             <button
                                                 key={`type-${type}`}
-                                                className={`w-full text-left px-4 py-3 rounded-lg text-[11px] uppercase tracking-[0.15em] font-bold transition-all mt-0.5 ${activePropertyType === type ? 'bg-brand-red text-white' : 'text-zinc-500 hover:bg-zinc-200 dark:hover:bg-zinc-900'}`}
+                                                className={`w-full text-left px-4 py-2.5 rounded-lg text-[9px] md:text-[11px] uppercase tracking-[0.15em] font-bold transition-all mt-0.5 ${activePropertyType === type ? 'bg-brand-red text-white' : 'text-zinc-500 hover:bg-zinc-200 dark:hover:bg-zinc-900'}`}
                                                 onClick={() => { setActivePropertyType(String(type)); setIsPropertyTypeOpen(false); }}
                                             >
                                                 {String(type)}
@@ -101,22 +100,21 @@ export function PropertyBrowser({ initialListings }: PropertyBrowserProps) {
                         </div>
 
                         {/* Status Dropdown */}
-                        <div className="relative flex-1 group">
-                            <div className="flex flex-row items-center justify-between md:flex-col md:items-start px-6 py-4 md:py-6 cursor-pointer hover:bg-zinc-100 dark:hover:bg-zinc-900/50 transition-colors" onClick={() => { setIsStatusOpen(!isStatusOpen); setIsLocationOpen(false); setIsPropertyTypeOpen(false); }}>
+                        <div className="relative flex-1 group min-w-[100px] md:min-w-0">
+                            <div className="flex flex-row items-center justify-between px-3 md:px-6 cursor-pointer hover:bg-zinc-100 dark:hover:bg-zinc-900/50 transition-all duration-500 py-1" onClick={() => { setIsStatusOpen(!isStatusOpen); setIsLocationOpen(false); setIsPropertyTypeOpen(false); }}>
                                 <div className="flex flex-col">
-                                    <span className="text-[10px] uppercase tracking-[0.2em] font-bold text-zinc-400 dark:text-zinc-500 mb-1.5">Status</span>
-                                    <span className="text-zinc-900 dark:text-zinc-50 text-xs md:text-sm font-medium tracking-tight">
+                                    <span className="text-zinc-900 dark:text-zinc-50 font-medium tracking-tight transition-all duration-500 text-[9px] md:text-xs leading-tight max-w-[60px] md:max-w-[80px]">
                                         {activeStatus || 'Listing Status'}
                                     </span>
                                 </div>
-                                <svg className={`w-3 h-3 text-zinc-400 dark:text-zinc-600 transition-transform duration-500 ${isStatusOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M19 9l-7 7-7-7"></path></svg>
+                                <svg className={`w-2.5 h-2.5 md:w-3 md:h-3 text-zinc-400 dark:text-zinc-600 transition-transform duration-500 ml-2 ${isStatusOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M19 9l-7 7-7-7"></path></svg>
                             </div>
 
                             {isStatusOpen && (
-                                <div className="absolute top-[calc(100%+8px)] left-0 w-full min-w-[220px] bg-zinc-50 dark:bg-[#080808] border border-zinc-200 dark:border-zinc-800 rounded-xl overflow-hidden shadow-2xl z-50 animate-in fade-in slide-in-from-top-2 duration-300">
+                                <div className="absolute top-[calc(100%+12px)] left-0 w-full min-w-[180px] md:min-w-[220px] bg-white/95 dark:bg-[#080808]/95 backdrop-blur-md border border-zinc-200 dark:border-zinc-800 rounded-xl overflow-hidden shadow-3xl z-50 animate-in fade-in slide-in-from-top-2 duration-300">
                                     <div className="p-1.5">
                                         <button
-                                            className={`w-full text-left px-4 py-3 rounded-lg text-[11px] uppercase tracking-[0.15em] font-bold transition-all ${!activeStatus ? 'bg-zinc-900 dark:bg-zinc-100 text-white dark:text-black' : 'text-zinc-500 hover:bg-zinc-200 dark:hover:bg-zinc-900'}`}
+                                            className="w-full text-left px-4 py-2.5 rounded-lg text-[9px] md:text-[11px] uppercase tracking-[0.15em] font-bold transition-all text-zinc-500 hover:bg-zinc-200 dark:hover:bg-zinc-900"
                                             onClick={() => { setActiveStatus(null); setIsStatusOpen(false); }}
                                         >
                                             Every Status
@@ -124,7 +122,7 @@ export function PropertyBrowser({ initialListings }: PropertyBrowserProps) {
                                         {statuses.map(stat => (
                                             <button
                                                 key={`stat-${stat}`}
-                                                className={`w-full text-left px-4 py-3 rounded-lg text-[11px] uppercase tracking-[0.15em] font-bold transition-all mt-0.5 ${activeStatus === stat ? 'bg-brand-red text-white' : 'text-zinc-500 hover:bg-zinc-200 dark:hover:bg-zinc-900'}`}
+                                                className={`w-full text-left px-4 py-2.5 rounded-lg text-[9px] md:text-[11px] uppercase tracking-[0.15em] font-bold transition-all mt-0.5 ${activeStatus === stat ? 'bg-brand-red text-white' : 'text-zinc-500 hover:bg-zinc-200 dark:hover:bg-zinc-900'}`}
                                                 onClick={() => { setActiveStatus(String(stat)); setIsStatusOpen(false); }}
                                             >
                                                 {String(stat)}
@@ -136,22 +134,21 @@ export function PropertyBrowser({ initialListings }: PropertyBrowserProps) {
                         </div>
 
                         {/* Location Dropdown */}
-                        <div className="relative flex-1 group">
-                            <div className="flex flex-row items-center justify-between md:flex-col md:items-start px-6 py-4 md:py-6 cursor-pointer hover:bg-zinc-100 dark:hover:bg-zinc-900/50 transition-colors last:rounded-b-xl md:last:rounded-r-xl md:last:rounded-b-none" onClick={() => { setIsLocationOpen(!isLocationOpen); setIsPropertyTypeOpen(false); setIsStatusOpen(false); }}>
+                        <div className="relative flex-1 group min-w-[120px] md:min-w-0">
+                            <div className="flex flex-row items-center justify-between px-3 md:px-6 cursor-pointer hover:bg-zinc-100 dark:hover:bg-zinc-900/50 transition-all duration-500 py-1" onClick={() => { setIsLocationOpen(!isLocationOpen); setIsPropertyTypeOpen(false); setIsStatusOpen(false); }}>
                                 <div className="flex flex-col">
-                                    <span className="text-[10px] uppercase tracking-[0.2em] font-bold text-zinc-400 dark:text-zinc-500 mb-1.5">Location</span>
-                                    <span className="text-zinc-900 dark:text-zinc-50 text-xs md:text-sm font-medium tracking-tight truncate max-w-[150px]">
+                                    <span className="text-zinc-900 dark:text-zinc-50 font-medium tracking-tight transition-all duration-500 truncate max-w-[70px] md:max-w-[150px] text-[9px] md:text-xs">
                                         {activeLocation || 'Global Selection'}
                                     </span>
                                 </div>
-                                <svg className={`w-3 h-3 text-zinc-400 dark:text-zinc-600 transition-transform duration-500 ${isLocationOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M19 9l-7 7-7-7"></path></svg>
+                                <svg className={`w-2.5 h-2.5 md:w-3 md:h-3 text-zinc-400 dark:text-zinc-600 transition-transform duration-500 ml-2 ${isLocationOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M19 9l-7 7-7-7"></path></svg>
                             </div>
 
                             {isLocationOpen && (
-                                <div className="absolute top-[calc(100%+8px)] right-0 md:left-0 w-full min-w-[250px] bg-zinc-50 dark:bg-[#080808] border border-zinc-200 dark:border-zinc-800 rounded-xl overflow-hidden shadow-2xl z-50 animate-in fade-in slide-in-from-top-2 duration-300">
+                                <div className="absolute top-[calc(100%+12px)] right-0 md:left-0 w-full min-w-[200px] md:min-w-[250px] bg-white/95 dark:bg-[#080808]/95 backdrop-blur-md border border-zinc-200 dark:border-zinc-800 rounded-xl overflow-hidden shadow-3xl z-50 animate-in fade-in slide-in-from-top-2 duration-300">
                                     <div className="p-1.5 max-h-60 overflow-y-auto custom-scrollbar">
                                         <button
-                                            className={`w-full text-left px-4 py-3 rounded-lg text-[11px] uppercase tracking-[0.15em] font-bold transition-all ${!activeLocation ? 'bg-zinc-900 dark:bg-zinc-100 text-white dark:text-black' : 'text-zinc-500 hover:bg-zinc-200 dark:hover:bg-zinc-900'}`}
+                                            className="w-full text-left px-4 py-2.5 rounded-lg text-[9px] md:text-[11px] uppercase tracking-[0.15em] font-bold transition-all text-zinc-500 hover:bg-zinc-200 dark:hover:bg-zinc-900"
                                             onClick={() => { setActiveLocation(null); setIsLocationOpen(false); }}
                                         >
                                             All Locations
@@ -159,7 +156,7 @@ export function PropertyBrowser({ initialListings }: PropertyBrowserProps) {
                                         {locations.map(area => (
                                             <button
                                                 key={`area-${area}`}
-                                                className={`w-full text-left px-4 py-3 rounded-lg text-[11px] uppercase tracking-[0.15em] font-bold transition-all mt-0.5 ${activeLocation === area ? 'bg-brand-red text-white' : 'text-zinc-500 hover:bg-zinc-200 dark:hover:bg-zinc-900'}`}
+                                                className={`w-full text-left px-4 py-2.5 rounded-lg text-[9px] md:text-[11px] uppercase tracking-[0.15em] font-bold transition-all mt-0.5 ${activeLocation === area ? 'bg-brand-red text-white' : 'text-zinc-500 hover:bg-zinc-200 dark:hover:bg-zinc-900'}`}
                                                 onClick={() => { setActiveLocation(String(area)); setIsLocationOpen(false); }}
                                             >
                                                 {String(area)}
@@ -171,10 +168,10 @@ export function PropertyBrowser({ initialListings }: PropertyBrowserProps) {
                         </div>
                     </div>
 
-                    <div className="px-6 py-4 md:py-0">
+                    <div className="px-3 md:px-4 transition-all duration-500 py-0.5">
                         <button
                             onClick={clearFilters}
-                            className="w-full md:w-auto px-6 py-2.5 bg-zinc-900 dark:bg-zinc-100 text-white dark:text-black rounded-lg text-[10px] uppercase tracking-[0.2em] font-bold hover:bg-brand-red dark:hover:bg-brand-red dark:hover:text-white transition-all duration-300 shadow-sm"
+                            className="w-auto md:w-auto bg-zinc-900 dark:bg-zinc-100 text-white dark:text-black rounded-lg uppercase tracking-[0.2em] font-bold hover:bg-brand-red dark:hover:bg-brand-red dark:hover:text-white transition-all duration-300 shadow-sm px-3 md:px-4 py-1 text-[7px]"
                         >
                             Reset
                         </button>

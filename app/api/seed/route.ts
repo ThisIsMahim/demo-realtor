@@ -13,16 +13,11 @@ export async function GET() {
     const propertyTypes = ["Mansion", "Villa", "Penthouse", "Estate", "Modern Compound", "Glass House", "Brutalist Base", "Chateau"];
     const statuses = ["Available", "Under Contract", "Sold", "Coming Soon"];
     const images = [
-      "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=1600&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1600607687930-cebc5a52862a?q=80&w=1600&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=1600&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1600&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?q=80&w=1600&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?q=80&w=1600&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?q=80&w=1600&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1510798831971-661eb04b3739?q=80&w=1600&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1600&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1518005020251-5fb5c2020251?q=80&w=1600&auto=format&fit=crop"
+      "/images/listings/brutalist_mansion.png",
+      "/images/listings/glass_villa.png",
+      "/images/listings/concrete_compound.png",
+      "/images/listings/onyx_penthouse.png",
+      "/images/listings/clifftop_estate.png"
     ];
 
     const generateTitle = (type: string, loc: string) => {
