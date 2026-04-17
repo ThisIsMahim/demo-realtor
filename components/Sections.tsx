@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 export function About({ id }: { id: string }) {
     return (
@@ -13,12 +14,14 @@ export function About({ id }: { id: string }) {
                     transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
                     className="flex-1 w-full"
                 >
-                    <div className="w-full aspect-[4/5] bg-foreground/5 relative rounded-2xl overflow-hidden">
+                    <div className="w-full aspect-[4/5] bg-foreground/5 relative rounded-none border border-foreground/10 overflow-hidden shadow-[20px_20px_0px_0px_rgba(0,0,0,0.05)] dark:shadow-[20px_20px_0px_0px_rgba(255,255,255,0.02)]">
                         <div className="absolute inset-0 bg-gradient-to-tr from-black/80 to-transparent dark:from-black/90" />
-                        <img
+                        <Image
                             src="https://images.unsplash.com/photo-1510798831971-661eb04b3739?q=80&w=1600&auto=format&fit=crop"
                             alt="Architecture Detail"
-                            className="w-full h-full object-cover mix-blend-luminosity opacity-40 hover:opacity-100 transition-opacity duration-1000"
+                            fill
+                            className="object-cover mix-blend-luminosity opacity-40 hover:opacity-100 transition-opacity duration-1000"
+                            sizes="(max-width: 768px) 100vw, 50vw"
                         />
                         <div className="absolute bottom-6 left-6 md:bottom-12 md:left-12">
                             <span className="text-[10px] uppercase tracking-[0.4em] text-white/50 mb-2 block">— 01. Ethos</span>
@@ -123,11 +126,13 @@ export function Blogs({ id }: { id: string }) {
                         transition={{ duration: 1, delay: i * 0.2, ease: [0.16, 1, 0.3, 1] }}
                         className="group cursor-pointer block"
                     >
-                        <div className="w-full aspect-[16/10] bg-foreground/5 mb-8 overflow-hidden relative border border-foreground/5 rounded-2xl">
-                            <img
+                        <div className="w-full aspect-[16/10] bg-foreground/5 mb-8 overflow-hidden relative border border-foreground/20 rounded-none shadow-[10px_10px_0px_0px_rgba(0,0,0,0.05)] dark:shadow-[10px_10px_0px_0px_rgba(255,255,255,0.02)]">
+                            <Image
                                 src={blog.image}
                                 alt={blog.title}
-                                className="w-full h-full object-cover mix-blend-luminosity opacity-40 dark:opacity-50 group-hover:opacity-100 group-hover:scale-105 transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)]"
+                                fill
+                                className="object-cover mix-blend-luminosity opacity-40 dark:opacity-50 group-hover:opacity-100 group-hover:scale-105 transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)]"
+                                sizes="(max-width: 768px) 100vw, 40vw"
                             />
                             <div className="absolute inset-0 bg-brand-red/5 origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]" />
                         </div>
@@ -166,7 +171,7 @@ export function Contact({ id }: { id: string }) {
                 <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="bg-brand-red text-white px-12 py-5 text-xs font-sans font-medium tracking-[0.3em] uppercase transition-all duration-300 hover:bg-brand-red/90 shadow-xl shadow-brand-red/20 rounded-full"
+                    className="bg-brand-red text-white px-12 py-5 text-xs font-sans font-medium tracking-[0.3em] uppercase transition-all duration-300 hover:bg-brand-red/90 shadow-[8px_8px_0px_0px_rgba(225,29,72,0.2)] rounded-none"
                 >
                     Secure Consultation
                 </motion.button>

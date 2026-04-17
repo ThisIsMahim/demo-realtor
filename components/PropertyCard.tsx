@@ -31,7 +31,7 @@ export function PropertyCard({ listing, spanClass = "" }: PropertyCardProps) {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.9 }}
             transition={{ duration: 0.6, ease: [0.33, 1, 0.68, 1] }}
-            className={`group relative overflow-hidden rounded-2xl bg-white dark:bg-architecture-slate transition-all duration-700 ease-[cubic-bezier(0.33,1,0.68,1)] hover:shadow-2xl dark:hover:shadow-brand-red/10 cursor-pointer ${spanClass} border border-black/5 dark:border-white/5`}
+            className={`group relative overflow-hidden rounded-none bg-white dark:bg-architecture-slate transition-all duration-700 ease-[cubic-bezier(0.33,1,0.68,1)] hover:shadow-2xl dark:hover:shadow-brand-red/10 cursor-pointer ${spanClass} border border-black/10 dark:border-white/10`}
         >
             <div className="absolute inset-0 z-0 overflow-hidden">
                 <motion.div
@@ -51,14 +51,14 @@ export function PropertyCard({ listing, spanClass = "" }: PropertyCardProps) {
 
             <div className="absolute inset-x-0 top-0 p-4 md:p-6 z-20 flex justify-between items-start pointer-events-none">
                 {/* Status glass badge (Top Left) */}
-                <div className="bg-brand-red dark:bg-brand-red/90 backdrop-blur-md rounded-full px-4 py-1.5 shadow-lg flex items-center md:opacity-0 md:translate-y-[-10px] transition-all duration-700 ease-[cubic-bezier(0.33,1,0.68,1)] group-hover:opacity-100 group-hover:translate-y-0">
+                <div className="bg-brand-red dark:bg-brand-red/90 backdrop-blur-md rounded-none px-4 py-1.5 shadow-lg flex items-center md:opacity-0 md:translate-y-[-10px] transition-all duration-700 ease-[cubic-bezier(0.33,1,0.68,1)] group-hover:opacity-100 group-hover:translate-y-0">
                     <span className="text-[9px] md:text-[10px] font-sans font-bold uppercase tracking-widest text-white">
                         {listing.status}
                     </span>
                 </div>
 
                 {/* Location glass badge (Top Right) */}
-                <div className="bg-black/30 dark:bg-black/50 backdrop-blur-md rounded px-3 py-1 text-right flex items-center shadow-lg md:opacity-0 md:translate-y-[-10px] transition-all duration-700 delay-[50ms] ease-[cubic-bezier(0.33,1,0.68,1)] group-hover:opacity-100 group-hover:translate-y-0 text-white/90">
+                <div className="bg-black/30 dark:bg-black/50 backdrop-blur-md rounded-none px-3 py-1 text-right flex items-center shadow-lg md:opacity-0 md:translate-y-[-10px] transition-all duration-700 delay-[50ms] ease-[cubic-bezier(0.33,1,0.68,1)] group-hover:opacity-100 group-hover:translate-y-0 text-white/90 border border-white/10">
                     <span className="text-[9px] md:text-[10px] font-sans uppercase tracking-[0.2em]">
                         {listing.location}
                     </span>

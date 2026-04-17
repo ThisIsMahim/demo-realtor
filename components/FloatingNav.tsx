@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ThemeToggle } from "./ThemeToggle";
 import { Menu, X, Info, Briefcase, Home, BookOpen, Mail } from "lucide-react";
@@ -18,24 +18,38 @@ export function FloatingNav() {
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
 
+    const navRef = useRef<HTMLDivElement>(null);
+
     useEffect(() => {
         const handleScroll = () => {
             setScrolled(window.scrollY > 50);
         };
+
+        const handleClickOutside = (event: MouseEvent) => {
+            if (isOpen && navRef.current && !navRef.current.contains(event.target as Node)) {
+                setIsOpen(false);
+            }
+        };
+
         window.addEventListener("scroll", handleScroll);
-        return () => window.removeEventListener("scroll", handleScroll);
-    }, []);
+        document.addEventListener("mousedown", handleClickOutside);
+
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [isOpen]);
 
     return (
-        <div className="fixed bottom-8 right-8 z-[100] flex flex-col-reverse items-end gap-4">
+        <div ref={navRef} className="fixed bottom-8 right-8 z-[100] flex flex-col-reverse items-end gap-4">
             {/* Trigger Button */}
             <motion.button
                 onClick={() => setIsOpen(!isOpen)}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className={`w-14 h-14 rounded-full flex items-center justify-center backdrop-blur-md border shadow-2xl transition-colors duration-300 ${isOpen
-                    ? "bg-brand-red border-brand-red text-white"
-                    : "bg-white/80 dark:bg-black/80 border-zinc-200 dark:border-zinc-800 text-zinc-900 dark:text-zinc-50"
+                className={`w-14 h-14 rounded-none flex items-center justify-center backdrop-blur-md border shadow-[6px_6px_0px_0px_rgba(0,0,0,0.2)] dark:shadow-[6px_6px_0px_0px_rgba(255,255,255,0.15)] transition-colors duration-300 ${isOpen
+                    ? "bg-brand-red border-brand-red text-white scale-110"
+                    : "bg-white/90 dark:bg-black/90 border-zinc-900 dark:border-zinc-700 text-zinc-900 dark:text-zinc-50"
                     }`}
             >
                 <AnimatePresence mode="wait">
@@ -85,14 +99,14 @@ export function FloatingNav() {
                                     onClick={() => setIsOpen(false)}
                                     className="group flex flex-row-reverse items-center gap-3"
                                 >
-                                    <div className="w-12 h-12 rounded-full bg-white/80 dark:bg-black/80 border border-zinc-200 dark:border-zinc-800 backdrop-blur-md flex items-center justify-center text-zinc-900 dark:text-zinc-50 shadow-lg group-hover:bg-brand-red group-hover:border-brand-red group-hover:text-white transition-all duration-300">
+                                    <div className="w-12 h-12 rounded-none bg-white dark:bg-black border-2 border-zinc-900 dark:border-zinc-700 backdrop-blur-md flex items-center justify-center text-zinc-900 dark:text-zinc-50 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.1)] group-hover:bg-brand-red group-hover:border-brand-red group-hover:text-white transition-all duration-300">
                                         {link.icon}
                                     </div>
                                     <motion.span
                                         initial={{ opacity: 0, x: 10 }}
                                         animate={{ opacity: 1, x: 0 }}
                                         transition={{ delay: i * 0.05 + 0.1 }}
-                                        className="px-3 py-1.5 rounded-lg bg-white/80 dark:bg-black/80 border border-zinc-200 dark:border-zinc-800 backdrop-blur-md text-[10px] uppercase tracking-widest font-sans font-bold text-zinc-900 dark:text-zinc-50 shadow-sm opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap"
+                                        className="px-3 py-1.5 rounded-none bg-white dark:bg-black border border-zinc-900 dark:border-zinc-700 backdrop-blur-md text-[10px] uppercase tracking-widest font-sans font-bold text-zinc-900 dark:text-zinc-50 shadow-[2px_2px_0px_0px_rgba(0,0,0,0.1)] opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap"
                                     >
                                         {link.label}
                                     </motion.span>
@@ -113,10 +127,10 @@ export function FloatingNav() {
                                 }}
                                 className="group flex flex-row-reverse items-center gap-3"
                             >
-                                <div className="w-12 h-12 rounded-full bg-white/80 dark:bg-black/80 border border-zinc-200 dark:border-zinc-800 backdrop-blur-md flex items-center justify-center text-zinc-900 dark:text-zinc-50 shadow-lg transition-all duration-300">
+                                <div className="w-12 h-12 rounded-none bg-white dark:bg-black border border-zinc-900 dark:border-zinc-700 backdrop-blur-md flex items-center justify-center text-zinc-900 dark:text-zinc-50 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.1)] transition-all duration-300">
                                     <ThemeToggle />
                                 </div>
-                                <span className="px-3 py-1.5 rounded-lg bg-white/80 dark:bg-black/80 border border-zinc-200 dark:border-zinc-800 backdrop-blur-md text-[10px] uppercase tracking-widest font-sans font-bold text-zinc-900 dark:text-zinc-50 shadow-sm opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                                <span className="px-3 py-1.5 rounded-none bg-white dark:bg-black border border-zinc-900 dark:border-zinc-700 backdrop-blur-md text-[10px] uppercase tracking-widest font-sans font-bold text-zinc-900 dark:text-zinc-50 shadow-[2px_2px_0px_0px_rgba(0,0,0,0.1)] opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
                                     Appearance
                                 </span>
                             </motion.div>

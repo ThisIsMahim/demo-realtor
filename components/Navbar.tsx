@@ -31,7 +31,7 @@ export function Navbar() {
             </div>
 
             <div className="hidden md:block">
-                <button className="px-6 py-2.5 rounded-full border border-foreground/30 text-xs font-sans hover:bg-foreground/10 transition-colors uppercase tracking-widest">
+                <button className="px-6 py-3 rounded-none border-2 border-foreground text-xs font-sans font-bold hover:bg-foreground hover:text-background transition-colors uppercase tracking-widest shadow-[4px_4px_0px_0px_rgba(0,0,0,0.1)]">
                     Select Project
                 </button>
             </div>
@@ -85,7 +85,7 @@ export function Navbar() {
                                 </motion.a>
                             ))}
                         </div>
-                        <button className="mt-16 px-8 py-3 rounded-full border border-foreground/30 text-xs font-sans uppercase tracking-[0.2em] text-foreground">
+                        <button className="mt-16 px-8 py-4 rounded-none border-2 border-foreground text-xs font-sans font-bold uppercase tracking-[0.2em] text-foreground hover:bg-foreground hover:text-background transition-all">
                             Select Project
                         </button>
                     </motion.div>
