@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { useRef } from 'react';
+import { memo, useRef } from 'react';
 import { IListing } from '../models/Listing';
 
 interface PropertyCardProps {
@@ -9,7 +9,7 @@ interface PropertyCardProps {
     spanClass?: string;
 }
 
-export function PropertyCard({ listing, spanClass = "" }: PropertyCardProps) {
+export const PropertyCard = memo(({ listing, spanClass = "" }: PropertyCardProps) => {
     const containerRef = useRef<HTMLDivElement>(null);
     const { scrollYProgress } = useScroll({
         target: containerRef,
@@ -27,18 +27,21 @@ export function PropertyCard({ listing, spanClass = "" }: PropertyCardProps) {
         <Link href={`/property/${listing._id}`} className={`block cursor-pointer ${spanClass}`}>
             <motion.div
                 ref={containerRef}
-                layout
                 layoutId={listing._id ? String(listing._id) : undefined}
                 initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                transition={{ duration: 0.6, ease: [0.33, 1, 0.68, 1] }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true, margin: "100px" }}
+                transition={{ duration: 0.8, ease: [0.33, 1, 0.68, 1] }}
                 className={`group relative w-full h-full overflow-hidden rounded-none bg-white dark:bg-architecture-slate transition-all duration-700 ease-[cubic-bezier(0.33,1,0.68,1)] hover:shadow-2xl dark:hover:shadow-brand-red/10 border border-black/10 dark:border-white/10`}
+                style={{
+                    contentVisibility: 'auto',
+                    containIntrinsicSize: '0 500px'
+                } as any}
             >
                 <div className="absolute inset-0 z-0 overflow-hidden">
                     <motion.div
-                        style={{ y }}
-                        className="absolute inset-[ -15% ] w-[100%] h-[130%]"
+                        style={{ y, willChange: 'transform' }}
+                        className="absolute top-[-15%] left-[-15%] w-[130%] h-[130%]"
                     >
                         <Image
                             src={imageUrl}
@@ -92,4 +95,4 @@ export function PropertyCard({ listing, spanClass = "" }: PropertyCardProps) {
             </motion.div>
         </Link>
     );
-}
+});

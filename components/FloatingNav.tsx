@@ -53,7 +53,7 @@ export function FloatingNav() {
                     onClick={() => setIsOpen(!isOpen)}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className={`w-14 h-14 rounded-none flex items-center justify-center backdrop-blur-md border shadow-[6px_6px_0px_0px_rgba(0,0,0,0.2)] dark:shadow-[6px_6px_0px_0px_rgba(255,255,255,0.15)] transition-colors duration-300 ${isOpen
+                    className={`w-14 h-14 rounded-none cursor-pointer flex items-center justify-center backdrop-blur-md border shadow-[6px_6px_0px_0px_rgba(0,0,0,0.2)] dark:shadow-[6px_6px_0px_0px_rgba(255,255,255,0.15)] transition-colors duration-300 ${isOpen
                         ? "bg-brand-red border-brand-red text-white scale-110"
                         : "bg-white/90 dark:bg-black/90 border-zinc-900 dark:border-zinc-700 text-zinc-900 dark:text-zinc-50"
                         }`}
@@ -95,6 +95,8 @@ export function FloatingNav() {
                                         initial={{ opacity: 0, y: 20, x: 10, scale: 0.8 }}
                                         animate={{ opacity: 1, y: 0, x: 0, scale: 1 }}
                                         exit={{ opacity: 0, y: 20, x: 10, scale: 0.8 }}
+                                        whileHover={{ scale: 1.05, x: -5 }}
+                                        whileTap={{ scale: 0.95 }}
                                         transition={{
                                             duration: 0.3,
                                             delay: i * 0.05,
@@ -102,17 +104,31 @@ export function FloatingNav() {
                                             stiffness: 260,
                                             damping: 20
                                         }}
-                                        onClick={() => setIsOpen(false)}
-                                        className="group flex flex-row-reverse items-center gap-3"
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            setIsOpen(false);
+                                            if (link.href === '#') {
+                                                window.scrollTo({ top: 0, behavior: 'smooth' });
+                                            } else {
+                                                const element = document.querySelector(link.href);
+                                                if (element) {
+                                                    element.scrollIntoView({ behavior: 'smooth' });
+                                                }
+                                            }
+                                        }}
+                                        className="group flex flex-row-reverse items-center gap-3 cursor-pointer"
                                     >
-                                        <div className="w-12 h-12 rounded-none bg-white dark:bg-black border-2 border-zinc-900 dark:border-zinc-700 backdrop-blur-md flex items-center justify-center text-zinc-900 dark:text-zinc-50 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.1)] group-hover:bg-brand-red group-hover:border-brand-red group-hover:text-white transition-all duration-300">
+                                        <motion.div
+                                            whileHover={{ rotate: 5 }}
+                                            className="w-12 h-12 rounded-none bg-white dark:bg-black border-2 border-zinc-900 dark:border-zinc-700 backdrop-blur-md flex items-center justify-center text-zinc-900 dark:text-zinc-50 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.1)] group-hover:bg-brand-red group-hover:border-brand-red group-hover:text-white transition-all duration-300"
+                                        >
                                             {link.icon}
-                                        </div>
+                                        </motion.div>
                                         <motion.span
                                             initial={{ opacity: 0, x: 10 }}
                                             animate={{ opacity: 1, x: 0 }}
                                             transition={{ delay: i * 0.05 + 0.1 }}
-                                            className="px-3 py-1.5 rounded-none bg-white dark:bg-black border border-zinc-900 dark:border-zinc-700 backdrop-blur-md text-[10px] uppercase tracking-widest font-sans font-bold text-zinc-900 dark:text-zinc-50 shadow-[2px_2px_0px_0px_rgba(0,0,0,0.1)] opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap"
+                                            className="px-3 py-1.5 rounded-none bg-white dark:bg-black border border-zinc-900 dark:border-zinc-700 backdrop-blur-md text-[10px] uppercase tracking-widest font-sans font-bold text-zinc-900 dark:text-zinc-50 shadow-[2px_2px_0px_0px_rgba(0,0,0,0.1)] opacity-0 group-hover:opacity-100 transition-all duration-300 transform group-hover:-translate-x-2 whitespace-nowrap"
                                         >
                                             {link.label}
                                         </motion.span>

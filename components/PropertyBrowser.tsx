@@ -57,6 +57,20 @@ export function PropertyBrowser({ initialListings }: PropertyBrowserProps) {
     const [isLocationOpen, setIsLocationOpen] = useState(false);
     const [isPropertyTypeOpen, setIsPropertyTypeOpen] = useState(false);
     const [isStatusOpen, setIsStatusOpen] = useState(false);
+    const [visibleCount, setVisibleCount] = useState(13);
+
+    const visibleListings = useMemo(() => {
+        return filteredListings.slice(0, visibleCount);
+    }, [filteredListings, visibleCount]);
+
+    const loadMore = () => {
+        setVisibleCount(prev => prev + 13);
+    };
+
+    // Reset visible count when filters change
+    useEffect(() => {
+        setVisibleCount(13);
+    }, [activeLocation, activePropertyType, activeStatus]);
 
     return (
         <div className="w-full flex flex-col relative -mt-16 sm:-mt-20 md:-mt-24 z-30">
@@ -64,7 +78,7 @@ export function PropertyBrowser({ initialListings }: PropertyBrowserProps) {
             <div className="sticky top-4 z-[60] w-full px-4 transition-all duration-500 ease-in-out flex justify-center mb-8">
                 <div className="flex flex-row items-center bg-white/95 dark:bg-[#050505]/95 backdrop-blur-2xl border border-zinc-900 dark:border-zinc-700 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] shadow-[4px_4px_0px_0px_rgba(225,29,72,0.1)] md:shadow-[10px_10px_0px_0px_rgba(225,29,72,0.1)] max-w-5xl rounded-none py-1 md:py-2 px-1 md:px-2">
 
-                    <div className="flex-1 flex flex-row items-center divide-x divide-zinc-200 dark:divide-zinc-800 overflow-x-auto no-scrollbar">
+                    <div className="flex-1 flex flex-row items-center divide-x divide-zinc-200 dark:divide-zinc-800">
                         {/* Property Type Dropdown */}
                         <div className="relative flex-1 group md:min-w-[100px] flex-shrink-0">
                             <div className="flex flex-row items-center justify-start gap-1 md:gap-2 px-2 md:px-6 cursor-pointer hover:bg-zinc-100 dark:hover:bg-zinc-900/50 transition-all duration-500 py-1 rounded-none border-r border-transparent hover:border-brand-red/30" onClick={() => { setIsPropertyTypeOpen(!isPropertyTypeOpen); setIsLocationOpen(false); setIsStatusOpen(false); }}>
@@ -186,8 +200,20 @@ export function PropertyBrowser({ initialListings }: PropertyBrowserProps) {
                     <div className="fixed inset-0 z-30" onClick={() => { setIsPropertyTypeOpen(false); setIsLocationOpen(false); setIsStatusOpen(false); }}></div>
                 )}
                 <div className="relative z-10 px-0 md:px-12">
-                    <BentoGrid listings={filteredListings} />
+                    <BentoGrid listings={visibleListings} />
                 </div>
+
+                {filteredListings.length > visibleCount && (
+                    <div className="flex justify-center mt-12 mb-20">
+                        <button
+                            onClick={loadMore}
+                            className="group relative px-8 py-4 bg-zinc-900 dark:bg-zinc-100 text-white dark:text-black rounded-none uppercase tracking-[0.3em] font-bold overflow-hidden transition-all duration-500 hover:bg-brand-red dark:hover:bg-brand-red dark:hover:text-white"
+                        >
+                            <span className="relative z-10">Explore More</span>
+                            <div className="absolute inset-0 bg-brand-red translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]" />
+                        </button>
+                    </div>
+                )}
 
                 {filteredListings.length === 0 && (
                     <div className="absolute inset-0 flex flex-col items-center justify-center p-20 opacity-0 animate-[fade-in-up_1s_ease-out_forwards] z-20">

@@ -23,7 +23,7 @@ export function TopNav() {
                     initial="initial"
                     whileHover="hover"
                     whileTap="tap"
-                    className="group relative flex items-center text-white dark:text-white px-6 md:px-10 py-3 md:py-4 rounded-none text-[10px] md:text-xs font-sans font-bold uppercase tracking-[0.2em] shadow-[8px_8px_0px_0px_rgba(225,29,72,0.3)] overflow-hidden"
+                    className="group relative flex items-center cursor-pointer text-white dark:text-white px-6 md:px-10 py-3 md:py-4 rounded-none text-[10px] md:text-xs font-sans font-bold uppercase tracking-[0.2em] shadow-[8px_8px_0px_0px_rgba(225,29,72,0.3)] overflow-hidden"
                     variants={{
                         initial: { backgroundColor: "#18181b" }, // bg-zinc-900 equivalent
                         hover: { backgroundColor: "#E11D48" }    // brand-red
