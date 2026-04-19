@@ -53,6 +53,15 @@ body {
   }
 }
 
+/* Global scrollbar hide */
+::-webkit-scrollbar {
+  display: none;
+}
+* {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 /* Lenis Smooth Scroll Configuration */
 html.lenis,
 html.lenis body {
@@ -73,4 +82,12 @@ html.lenis body {
 
 .lenis.lenis-scrolling iframe {
   pointer-events: none;
+}
+
+/* ─── Theme Switch: View Transition circle wipe ─────────────────────────────
+   Suppress the default cross-fade so only our clip-path animation runs.      */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
 }

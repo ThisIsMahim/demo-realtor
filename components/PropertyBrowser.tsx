@@ -62,18 +62,18 @@ export function PropertyBrowser({ initialListings }: PropertyBrowserProps) {
         <div className="w-full flex flex-col relative -mt-16 sm:-mt-20 md:-mt-24 z-30">
             {/* Themed Filter Bar - "Architectural Slab" Design */}
             <div className="sticky top-4 z-[60] w-full px-4 transition-all duration-500 ease-in-out flex justify-center mb-8">
-                <div className="flex flex-row items-center bg-white/95 dark:bg-[#050505]/95 backdrop-blur-2xl border border-zinc-900 dark:border-zinc-700 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] shadow-[10px_10px_0px_0px_rgba(225,29,72,0.1)] max-w-5xl rounded-none py-2 px-4">
+                <div className="flex flex-row items-center bg-white/95 dark:bg-[#050505]/95 backdrop-blur-2xl border border-zinc-900 dark:border-zinc-700 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] shadow-[4px_4px_0px_0px_rgba(225,29,72,0.1)] md:shadow-[10px_10px_0px_0px_rgba(225,29,72,0.1)] max-w-5xl rounded-none py-1 md:py-2 px-1 md:px-2">
 
                     <div className="flex-1 flex flex-row items-center divide-x divide-zinc-200 dark:divide-zinc-800 overflow-x-auto no-scrollbar">
                         {/* Property Type Dropdown */}
-                        <div className="relative flex-1 group min-w-[100px] flex-shrink-0">
-                            <div className="flex flex-row items-center justify-start gap-2 px-3 md:px-6 cursor-pointer hover:bg-zinc-100 dark:hover:bg-zinc-900/50 transition-all duration-500 py-1 rounded-none border-r border-transparent hover:border-brand-red/30" onClick={() => { setIsPropertyTypeOpen(!isPropertyTypeOpen); setIsLocationOpen(false); setIsStatusOpen(false); }}>
+                        <div className="relative flex-1 group md:min-w-[100px] flex-shrink-0">
+                            <div className="flex flex-row items-center justify-start gap-1 md:gap-2 px-2 md:px-6 cursor-pointer hover:bg-zinc-100 dark:hover:bg-zinc-900/50 transition-all duration-500 py-1 rounded-none border-r border-transparent hover:border-brand-red/30" onClick={() => { setIsPropertyTypeOpen(!isPropertyTypeOpen); setIsLocationOpen(false); setIsStatusOpen(false); }}>
                                 <div className="flex flex-col">
-                                    <span className="text-zinc-900 dark:text-zinc-50 font-medium tracking-tight transition-all duration-500 text-[9px] md:text-xs">
+                                    <span className="text-zinc-900 dark:text-zinc-50 font-medium tracking-tight transition-all duration-500 text-[8px] sm:text-[9px] md:text-xs">
                                         {activePropertyType || 'All Estates'}
                                     </span>
                                 </div>
-                                <svg className={`w-2.5 h-2.5 md:w-3 md:h-3 text-zinc-400 dark:text-zinc-600 transition-transform duration-500 ml-2 ${isPropertyTypeOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M19 9l-7 7-7-7"></path></svg>
+                                <svg className={`w-2 h-2 md:w-3 md:h-3 text-zinc-400 dark:text-zinc-600 transition-transform duration-500 ml-1 md:ml-2 ${isPropertyTypeOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M19 9l-7 7-7-7"></path></svg>
                             </div>
 
                             {isPropertyTypeOpen && (
@@ -100,14 +100,14 @@ export function PropertyBrowser({ initialListings }: PropertyBrowserProps) {
                         </div>
 
                         {/* Status Dropdown */}
-                        <div className="relative flex-1 group min-w-[100px] flex-shrink-0">
-                            <div className="flex flex-row items-center justify-start gap-2 px-3 md:px-6 cursor-pointer hover:bg-zinc-100 dark:hover:bg-zinc-900/50 transition-all duration-500 py-1" onClick={() => { setIsStatusOpen(!isStatusOpen); setIsLocationOpen(false); setIsPropertyTypeOpen(false); }}>
+                        <div className="relative flex-1 group md:min-w-[100px] flex-shrink-0">
+                            <div className="flex flex-row items-center justify-start gap-1 md:gap-2 px-2 md:px-6 cursor-pointer hover:bg-zinc-100 dark:hover:bg-zinc-900/50 transition-all duration-500 py-1" onClick={() => { setIsStatusOpen(!isStatusOpen); setIsLocationOpen(false); setIsPropertyTypeOpen(false); }}>
                                 <div className="flex flex-row items-center">
-                                    <span className="text-zinc-900 dark:text-zinc-50 font-medium tracking-tight transition-all duration-500 text-[9px] md:text-xs whitespace-nowrap">
+                                    <span className="text-zinc-900 dark:text-zinc-50 font-medium tracking-tight transition-all duration-500 text-[8px] sm:text-[9px] md:text-xs whitespace-nowrap">
                                         {activeStatus || 'Listing Status'}
                                     </span>
                                 </div>
-                                <svg className={`w-2.5 h-2.5 md:w-3 md:h-3 text-zinc-400 dark:text-zinc-600 transition-transform duration-500 ml-2 ${isStatusOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M19 9l-7 7-7-7"></path></svg>
+                                <svg className={`w-2 h-2 md:w-3 md:h-3 text-zinc-400 dark:text-zinc-600 transition-transform duration-500 ml-1 md:ml-2 ${isStatusOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M19 9l-7 7-7-7"></path></svg>
                             </div>
 
                             {isStatusOpen && (
@@ -134,14 +134,14 @@ export function PropertyBrowser({ initialListings }: PropertyBrowserProps) {
                         </div>
 
                         {/* Location Dropdown */}
-                        <div className="relative flex-1 group min-w-[140px] flex-shrink-0">
-                            <div className="flex flex-row items-center justify-start gap-2 px-3 md:px-6 cursor-pointer hover:bg-zinc-100 dark:hover:bg-zinc-900/50 transition-all duration-500 py-1" onClick={() => { setIsLocationOpen(!isLocationOpen); setIsPropertyTypeOpen(false); setIsStatusOpen(false); }}>
+                        <div className="relative flex-1 group md:min-w-[140px] flex-shrink-0">
+                            <div className="flex flex-row items-center justify-start gap-1 md:gap-2 px-2 md:px-6 cursor-pointer hover:bg-zinc-100 dark:hover:bg-zinc-900/50 transition-all duration-500 py-1" onClick={() => { setIsLocationOpen(!isLocationOpen); setIsPropertyTypeOpen(false); setIsStatusOpen(false); }}>
                                 <div className="flex flex-row items-center">
-                                    <span className="text-zinc-900 dark:text-zinc-50 font-medium tracking-tight transition-all duration-500 text-[9px] md:text-xs whitespace-nowrap">
+                                    <span className="text-zinc-900 dark:text-zinc-50 font-medium tracking-tight transition-all duration-500 text-[8px] sm:text-[9px] md:text-xs whitespace-nowrap">
                                         {activeLocation || 'Global Selection'}
                                     </span>
                                 </div>
-                                <svg className={`w-2.5 h-2.5 md:w-3 md:h-3 text-zinc-400 dark:text-zinc-600 transition-transform duration-500 ml-2 ${isLocationOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M19 9l-7 7-7-7"></path></svg>
+                                <svg className={`w-2 h-2 md:w-3 md:h-3 text-zinc-400 dark:text-zinc-600 transition-transform duration-500 ml-1 md:ml-2 ${isLocationOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M19 9l-7 7-7-7"></path></svg>
                             </div>
 
                             {isLocationOpen && (
@@ -168,10 +168,10 @@ export function PropertyBrowser({ initialListings }: PropertyBrowserProps) {
                         </div>
                     </div>
 
-                    <div className="flex-shrink-0 px-3 md:px-4 transition-all duration-500 py-0.5 border-l border-zinc-200 dark:border-zinc-800">
+                    <div className="flex-shrink-0 px-1 md:px-4 transition-all duration-500 py-0.5 border-l border-zinc-200 dark:border-zinc-800">
                         <button
                             onClick={clearFilters}
-                            className="w-auto md:w-auto bg-zinc-900 dark:bg-zinc-100 text-white dark:text-black rounded-none uppercase tracking-[0.2em] font-bold hover:bg-brand-red dark:hover:bg-brand-red dark:hover:text-white transition-all duration-300 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.2)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,0.1)] px-3 md:px-4 py-2 text-[7px]"
+                            className="w-auto bg-zinc-900 dark:bg-zinc-100 text-white dark:text-black rounded-none uppercase tracking-[0.2em] font-bold hover:bg-brand-red dark:hover:bg-brand-red dark:hover:text-white transition-all duration-300 shadow-[2px_2px_0px_0px_rgba(0,0,0,0.2)] dark:shadow-[2px_2px_0px_0px_rgba(255,255,255,0.1)] md:shadow-[4px_4px_0px_0px_rgba(0,0,0,0.2)] md:dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,0.1)] px-2 md:px-4 py-1 md:py-2 text-[6px] sm:text-[7px]"
                         >
                             Reset
                         </button>
@@ -185,7 +185,7 @@ export function PropertyBrowser({ initialListings }: PropertyBrowserProps) {
                 {(isPropertyTypeOpen || isLocationOpen || isStatusOpen) && (
                     <div className="fixed inset-0 z-30" onClick={() => { setIsPropertyTypeOpen(false); setIsLocationOpen(false); setIsStatusOpen(false); }}></div>
                 )}
-                <div className="relative z-10 px-6 md:px-12">
+                <div className="relative z-10 px-0 md:px-12">
                     <BentoGrid listings={filteredListings} />
                 </div>
 

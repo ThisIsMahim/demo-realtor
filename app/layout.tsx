@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { FloatingNav } from "@/components/FloatingNav";
 import { SmoothScroll } from "@/components/SmoothScroll";
+import { TopNav } from "@/components/TopNav";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,8 +28,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  modal,
 }: Readonly<{
   children: React.ReactNode;
+  modal: React.ReactNode;
 }>) {
   return (
     <html
@@ -44,7 +47,9 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <SmoothScroll>
+            <TopNav />
             {children}
+            {modal}
           </SmoothScroll>
           <FloatingNav />
         </ThemeProvider>
