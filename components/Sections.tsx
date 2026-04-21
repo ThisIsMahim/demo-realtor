@@ -1,7 +1,9 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import ConsultationModal from "./ConsultationModal";
 
 export function About({ id }: { id: string }) {
     return (
@@ -101,7 +103,7 @@ export function Services({ id }: { id: string }) {
 
 export function Blogs({ id }: { id: string }) {
     const blogs = [
-        { title: "The Return of Raw Concrete in Residential Design", date: "24 OCT 2026", type: "Editorial", image: "https://images.unsplash.com/photo-1518005020251-5fb5c2020251?q=80&w=1600&auto=format&fit=crop" },
+        { title: "The Return of Raw Concrete in Residential Design", date: "24 OCT 2026", type: "Editorial", image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1600&auto=format&fit=crop" },
         { title: "Minimalism as a Luxury Statement", date: "12 SEP 2026", type: "Perspective", image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1600&auto=format&fit=crop" }
     ];
 
@@ -111,7 +113,7 @@ export function Blogs({ id }: { id: string }) {
                 <h2 className="font-serif text-5xl md:text-7xl text-foreground leading-none tracking-tighter">
                     Journal
                 </h2>
-                <a href="#" className="text-[10px] uppercase tracking-[0.3em] text-foreground/60 hover:text-brand-red border-b border-foreground/20 hover:border-brand-red transition-colors pb-1">
+                <a href="#" suppressHydrationWarning className="text-[10px] uppercase tracking-[0.3em] text-foreground/60 hover:text-brand-red border-b border-foreground/20 hover:border-brand-red transition-colors pb-1">
                     View All Editions
                 </a>
             </div>
@@ -151,6 +153,8 @@ export function Blogs({ id }: { id: string }) {
 }
 
 export function Contact({ id }: { id: string }) {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
     return (
         <section id={id} className="w-full relative z-20 border-t border-foreground/10 bg-background">
             <motion.div
@@ -171,11 +175,15 @@ export function Contact({ id }: { id: string }) {
                 <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
+                    suppressHydrationWarning
+                    onClick={() => setIsModalOpen(true)}
                     className="bg-brand-red text-white px-12 py-5 text-xs font-sans font-medium tracking-[0.3em] uppercase transition-all duration-300 hover:bg-brand-red/90 shadow-[8px_8px_0px_0px_rgba(225,29,72,0.2)] rounded-none"
                 >
                     Secure Consultation
                 </motion.button>
             </motion.div>
+
+            <ConsultationModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
         </section>
     );
 }

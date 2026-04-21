@@ -1,12 +1,12 @@
+import { Suspense } from "react";
 import { PropertyDetailsDrawer } from "@/components/PropertyDetailsDrawer";
 import { PropertyDetailsContent } from "@/components/PropertyDetailsContent";
+import { PropertyDetailsSkeleton } from "@/components/Skeletons";
 import connectToDatabase from "@/lib/mongodb";
 import { Listing } from "@/models/Listing";
 
-export default async function PropertyModalPage({ params }: { params: Promise<{ id: string }> }) {
+async function PropertyData({ id }: { id: string }) {
     await connectToDatabase();
-    const { id } = await params;
-
     const dbListing = await Listing.findById(id).lean();
     if (!dbListing) return null;
 
@@ -15,9 +15,17 @@ export default async function PropertyModalPage({ params }: { params: Promise<{ 
         _id: dbListing._id.toString()
     } as any;
 
+    return <PropertyDetailsContent listing={listing} />;
+}
+
+export default async function PropertyModalPage({ params }: { params: Promise<{ id: string }> }) {
+    const { id } = await params;
+
     return (
         <PropertyDetailsDrawer>
-            <PropertyDetailsContent listing={listing} />
+            <Suspense fallback={<PropertyDetailsSkeleton />}>
+                <PropertyData id={id} />
+            </Suspense>
         </PropertyDetailsDrawer>
     );
 }

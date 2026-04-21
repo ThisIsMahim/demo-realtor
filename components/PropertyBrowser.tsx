@@ -185,6 +185,7 @@ export function PropertyBrowser({ initialListings }: PropertyBrowserProps) {
                     <div className="flex-shrink-0 px-1 md:px-4 transition-all duration-500 py-0.5 border-l border-zinc-200 dark:border-zinc-800">
                         <button
                             onClick={clearFilters}
+                            suppressHydrationWarning
                             className="w-auto bg-zinc-900 dark:bg-zinc-100 text-white dark:text-black rounded-none uppercase tracking-[0.2em] font-bold hover:bg-brand-red dark:hover:bg-brand-red dark:hover:text-white transition-all duration-300 shadow-[2px_2px_0px_0px_rgba(0,0,0,0.2)] dark:shadow-[2px_2px_0px_0px_rgba(255,255,255,0.1)] md:shadow-[4px_4px_0px_0px_rgba(0,0,0,0.2)] md:dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,0.1)] px-2 md:px-4 py-1 md:py-2 text-[6px] sm:text-[7px]"
                         >
                             Reset
